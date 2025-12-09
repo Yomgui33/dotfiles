@@ -142,5 +142,19 @@ export EDITOR=/usr/bin/vim
 source /usr/share/fzf/shell/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="fd --type f"
 
+# bat (install)
+alias bat="batcat -p "
+
+# colored help
+# cf : https://blog.stephane-robert.info/docs/outils/fichiers/bat/
+alias bathelp='batcat --plain --language=help'
+help() {
+    if builtin help "$1" >/dev/null 2>&1; then
+        builtin help "$@" | bathelp
+    else
+        "$@" --help 2>&1 | bathelp
+    fi
+}
+
 # no EOL character
 export PROMPT_EOL_MARK=''
