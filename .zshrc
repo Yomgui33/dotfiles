@@ -143,7 +143,7 @@ source /usr/share/fzf/shell/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="fd --type f"
 
 # bat (install)
-alias bat="batcat -p "
+alias bat="batcat -p --paging=never"
 
 # colored help
 # cf : https://blog.stephane-robert.info/docs/outils/fichiers/bat/
