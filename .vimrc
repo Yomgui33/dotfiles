@@ -23,6 +23,8 @@ set showmatch
 set tabstop=4
 set nrformats+=alpha
 set nocompatible
+set ai
+set si
 " set cursorline
 
 " filetype detection
@@ -33,9 +35,23 @@ filetype indent on
 set laststatus=2
 set noshowmode
 
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
 " set foldmethod=indent
 " set foldlevel=1
 " set foldclose=all
 
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 2)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
