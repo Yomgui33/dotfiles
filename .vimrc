@@ -1,0 +1,72 @@
+" vim-plug auto install
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Plugins
+call plug#begin()
+Plug 'arcticicestudio/nord-vim'
+call plug#end()
+
+" Choix du scheme
+colorscheme nord
+
+" remaps
+inoremap hh <ESC>
+nnoremap <space> :
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
+" general settings
+syntax enable
+
+set number 
+set relativenumber
+
+set noswapfile 
+set nobackup
+set history=1000
+
+set hlsearch 
+set ignorecase 
+set incsearch
+set smartcase
+set showmatch
+
+set tabstop=4
+set nrformats+=alpha
+set nocompatible
+set ai
+set si
+" set cursorline
+
+" filetype detection
+filetype on
+filetype plugin on 
+filetype indent on
+
+set laststatus=2
+set noshowmode
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+" set foldmethod=indent
+" set foldlevel=1
+" set foldclose=all
+
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 2)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
